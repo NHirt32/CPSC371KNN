@@ -26,17 +26,25 @@ class mushroom:
         self.population = population
         self.habitat = habitat
 
+    def __str__(self):
+        return f"{self.classes}, {self.cap_shape}, {self.cap_color}, \
+{self.bruises}, {self.odor}, {self.gill_attachment}, {self.gill_spacing}, \
+{self.gill_size}, {self.gill_color}, {self.stalk_shape}, {self.stalk_root}, \
+{self.stalk_surface_above_ring}, {self.stalk_color_below_ring}, \
+{self.veil_type}, {self.veil_color}, {self.ring_number}, {self.ring_type}, \
+{self.spore_print_color}, {self.population}, {self.habitat}"
+
+
 def mushroom_list_create(char_list):
     # Creates a list of mushroom objects from a list of characters representing a mushrooms characteristics
     mushroom_list = []
     for element in char_list:
         mushroom_list.append(
             mushroom(element[0], element[1], element[2], element[3], element[4], element[5], element[6],
-                              element[7],
-                              element[8], element[9], element[10], element[11], element[12], element[13],
-                              element[14],
-                              element[15], element[16], element[17], element[18], element[19], element[20],
-                              element[21]))
+                     element[7],
+                     element[8], element[9], element[10], element[11], element[12], element[13],
+                     element[14],
+                     element[15], element[16], element[17], element[18], element[19], element[20],
+                     element[21]))
 
     return mushroom_list
-
