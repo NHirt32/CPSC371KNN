@@ -7,7 +7,7 @@
 class input_switcher:
 
     def switch(self, attribute):
-        default = '?'
+        default = 13
         return getattr(self, 'case_' + str(attribute), lambda: default)()
 
     def case_a(self):
@@ -50,40 +50,40 @@ class input_switcher:
         return 12
 
     def case_n(self):
-        return 13
-
-    def case_o(self):
         return 14
 
-    def case_p(self):
+    def case_o(self):
         return 15
 
-    def case_q(self):
+    def case_p(self):
         return 16
 
-    def case_r(self):
+    def case_q(self):
         return 17
 
-    def case_s(self):
+    def case_r(self):
         return 18
 
-    def case_t(self):
+    def case_s(self):
         return 19
 
-    def case_u(self):
+    def case_t(self):
         return 20
 
-    def case_v(self):
+    def case_u(self):
         return 21
 
-    def case_w(self):
+    def case_v(self):
         return 22
 
-    def case_x(self):
+    def case_w(self):
         return 23
 
-    def case_y(self):
+    def case_x(self):
         return 24
 
-    def case_z(self):
+    def case_y(self):
         return 25
+
+    def case_z(self):
+        return 26
