@@ -1,8 +1,20 @@
 import math
 import copy
-import mushroom
 import file_reader
 import input_switcher as insw
+
+# temp = file_reader.file_read("actual_sample_results.txt")
+# print(temp)
+# temp_file = open("actual_sample_results.txt", "w")
+# temp_file.truncate(0)
+
+# for item in temp:
+#     if item.pop(0) == '16':
+#         temp_file.write('p\n')
+#     else:
+#         temp_file.write('e\n')
+
+# temp_file.close()
 
 
 class InvalidDataDimensionException(Exception):
@@ -91,28 +103,47 @@ def k_nn(sample_data, unknown_data, k):
     return status_lists
 
 
-# print("\n\n\n\n")
+test_type = ""
 
-# actual_results = file_reader.file_read("accuracy_results.txt")
-# test_results = file_reader.file_read("predictionResultKNN.txt")
+# Determine whether user wants to test 100 unknown or test accuracy data
+while True:
+    try:
+        test_type = int(
+            input("Use code \"100\" to classify 100 unknown.\
+ Use code \"1600\" for accuracy tests.\n"))
+        if test_type == 100 or test_type == 1600:
+            break
+    except:
+        pass
+    print("")
 
-# count = 0
-# for i in range(len(actual_results)):
-#     if actual_results[i] != test_results[i]:
-#         count += 1
+training_file = ""
+test_file = ""
 
-# print(count)
+# Want full data
+if test_type == 100:
+    training_file = "MushroomData_8000.txt"
+    test_file = "MushroomData_Unknwon_100.txt"
+else:
+    training_file = "MushroomTrainingData_6400.txt"
+    test_file = "MushroomTestData_1600.txt"
 
 
 print("Reading Known Sample Data...\n")
 
-sample_data_list = file_reader.file_read("MushroomData_8000.txt")
+sample_data_list = file_reader.file_read(training_file)
 sample_data_list = switch_input(sample_data_list)
 
 print("Reading Unknown Test Data...\n")
 
-unknown_data_list = file_reader.file_read("MushroomData_Unknwon_100.txt")
+unknown_data_list = file_reader.file_read(test_file)
 unknown_data_list = switch_input(unknown_data_list)
+
+if (test_type == 1600):
+    "If doing testing accuracy have to remove known values."
+    for record in unknown_data_list:
+        record = record.pop(0)
+
 
 # Get k-value input, determines nearest neighbor
 while True:
@@ -126,16 +157,30 @@ while True:
     print("Input must be an integer value in the range of [1, 100]")
 
 
-print("\nUsing KNN method to determine predicted value...\n")
+print("\nUsing KNN method to determine predicted values...\n")
 
 predicted_statuses = k_nn(sample_data_list, unknown_data_list, k)
 
+if test_type == 100:
+    print("\nPrinting predictions...\n")
 
-print("\nPrinting unknown predictions...\n")
+    print(predicted_statuses)
 
-print(predicted_statuses)
+elif test_type == 1600:
+    print("\nCalculating Accuracy and Error Rate...\n")
+    actual_results = file_reader.file_read("actual_sample_results.txt")
 
-print("\nWriting predicted results to file...\n")
+    count = 0
+    for i in range(len(predicted_statuses)):
+        if predicted_statuses[i] != actual_results[i].pop(0):
+            count += 1
+
+    error_percentage = round((count/1600) * 100, 2)
+    print(f"Error Percentage: {error_percentage}")
+    print(f"Error Percentage: {round(100 - error_percentage, 2)}")
+
+
+print("\nWriting predictions to file...\n")
 
 output_file = open("predictionResultKNN.txt", "w")
 output_file.truncate(0)
@@ -144,6 +189,5 @@ for prediction in predicted_statuses:
 output_file.close()
 
 print("End of program")
-
 
 # ==============================================================================#
