@@ -110,7 +110,7 @@ while True:
     try:
         test_type = int(
             input("Use code \"100\" to classify 100 unknown.\
- Use code \"1600\" for accuracy tests.\n"))
+ Use code \"1600\" for accuracy tests.\n>"))
         if test_type == 100 or test_type == 1600:
             break
     except:
@@ -148,8 +148,8 @@ if (test_type == 1600):
 # Get k-value input, determines nearest neighbor
 while True:
     try:
-        k = int(input("What k value would you like to use? [1,100] (Recommended\
-[1-10])\n"))
+        k = int(
+            input("What k value would you like to use? [1,100] (Recommended: 1)\n>"))
         if k >= 1 and k <= 100:
             break
     except:
